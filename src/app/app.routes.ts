@@ -17,5 +17,14 @@ export const routes: Routes = [
   {
     path: 'history/:id',
     loadComponent: () => import('./pages/history-detail/history-detail.component').then(m => m.HistoryDetailComponent)
+  },
+  {
+    path: 'home',
+    redirectTo: '/analyzer',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/analyzer'
   }
 ];
