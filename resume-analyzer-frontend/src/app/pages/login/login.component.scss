@@ -30,6 +30,7 @@
     padding: 4rem;
   }
 
+  // Decorative background elements
   &::before {
     content: '';
     position: absolute;
@@ -245,7 +246,7 @@
     padding: 0 14px;
     border: 1.5px solid #e2e8f0;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 16px; // Prevent zoom on iOS
     transition: all 0.2s;
     outline: none;
     background: white;
@@ -399,5 +400,48 @@
     &:hover {
       color: #4f46e5;
     }
+  }
+}
+
+// Mobile-specific adjustments
+@media (max-width: 479px) {
+  .auth-form-side {
+    padding: 1rem;
+  }
+  
+  .auth-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .card-header .title {
+    font-size: 1.375rem;
+  }
+  
+  .google-btn {
+    height: 44px;
+    font-size: 14px;
+  }
+  
+  .form-group input {
+    height: 44px;
+    font-size: 16px;
+  }
+  
+  .submit-btn {
+    height: 44px;
+    font-size: 15px;
+  }
+}
+
+// Large desktop adjustments
+@media (min-width: 1440px) {
+  .auth-panel {
+    padding: 5rem;
+  }
+  
+  .auth-card {
+    max-width: 480px;
+    padding: 3rem;
   }
 }
