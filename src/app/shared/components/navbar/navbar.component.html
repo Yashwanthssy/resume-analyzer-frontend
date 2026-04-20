@@ -1,0 +1,35 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a routerLink="/" class="brand-logo">
+        <svg class="sparkle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="url(#gradient)" stroke="url(#gradient)" stroke-width="1.5"/>
+          <defs>
+            <linearGradient id="gradient" x1="2" y1="2" x2="22" y2="22">
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">ResumeAI</span>
+      </a>
+    </div>
+
+    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [attr.aria-expanded]="mobileMenuOpen()">
+      <svg *ngIf="!mobileMenuOpen()" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <svg *ngIf="mobileMenuOpen()" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="navbar-links" [class.mobile-open]="mobileMenuOpen()">
+      <a routerLink="/analyzer" routerLinkActive="active" (click)="closeMobileMenu()">Analyzer</a>
+      <a routerLink="/history" routerLinkActive="active" (click)="closeMobileMenu()">History</a>
+    </div>
+  </div>
+</nav>
