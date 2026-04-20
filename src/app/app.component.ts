@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { LoginPromptComponent } from './shared/components/login-prompt/login-prompt.component';
+import { MigrationSuccessComponent } from './shared/components/migration-success/migration-success.component';
+import { ToastComponent } from './shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavbarComponent, LoginPromptComponent, MigrationSuccessComponent, ToastComponent],
   template: `
     <div class="app">
-      <header>
-        <h1>ResumeAI</h1>
-        <p>AI-Powered Resume Analyzer</p>
-      </header>
-      <main>
+      <app-navbar></app-navbar>
+      <main class="main-content">
         <router-outlet></router-outlet>
       </main>
+      <app-login-prompt></app-login-prompt>
+      <app-migration-success></app-migration-success>
+      <app-toast></app-toast>
     </div>
   `,
   styles: [`
@@ -22,19 +26,9 @@ import { RouterOutlet } from '@angular/router';
       display: flex;
       flex-direction: column;
     }
-    header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 2rem;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    main {
+    .main-content {
       flex: 1;
-      padding: 2rem;
+      padding-top: 80px; /* Account for fixed navbar */
     }
   `]
 })

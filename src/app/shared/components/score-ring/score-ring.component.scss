@@ -1,0 +1,64 @@
+.score-ring {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  
+  svg {
+    display: block;
+  }
+}
+
+.score-ring-bg {
+  stroke: var(--border-light);
+}
+
+.score-ring-progress {
+  transition: stroke-dashoffset 1s ease-in-out;
+  stroke-linecap: round;
+  
+  &.success {
+    stroke: var(--success);
+  }
+  
+  &.warning {
+    stroke: var(--warning);
+  }
+  
+  &.danger {
+    stroke: var(--danger);
+  }
+}
+
+.score-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.score-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+  
+  &.success {
+    color: var(--success);
+  }
+  
+  &.warning {
+    color: var(--warning);
+  }
+  
+  &.danger {
+    color: var(--danger);
+  }
+}
+
+.score-max {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 2px;
+}
