@@ -132,7 +132,7 @@ Update `src/environments/environment.ts` to point to your backend:
 ```typescript
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000'  // Change if needed
+  apiUrl: 'http://localhost:3000'
 };
 ```
 
