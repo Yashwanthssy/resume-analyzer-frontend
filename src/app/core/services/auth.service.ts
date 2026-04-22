@@ -20,10 +20,44 @@ export class AuthService {
 
   constructor() {
     // Initialize user from storage on service creation
+    this.initializeAuth();
+  }
+
+  private initializeAuth(): void {
+    const token = this.getToken();
     const user = this.getUserFromStorage();
-    if (user) {
+    
+    if (token && user) {
+      // Set user immediately from storage
       this.currentUserSubject.next(user);
+      
+      // Then verify token is still valid
+      this.fetchCurrentUser().subscribe({
+        next: (validUser) => {
+          // Token validation successful
+        },
+        error: (error) => {
+          // Token validation failed, clear auth data
+          this.clearAuthData();
+        }
+      });
+    } else if (token && !user) {
+      // We have a token but no user data, fetch it
+      this.fetchCurrentUser().subscribe({
+        error: (error) => {
+          this.clearAuthData();
+        }
+      });
+    } else {
+      // No token or user, ensure we're in logged out state
+      this.currentUserSubject.next(null);
     }
+  }
+
+  private clearAuthData(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.USER_KEY);
+    this.currentUserSubject.next(null);
   }
 
   register(dto: RegisterDto): Observable<AuthResponse> {
@@ -51,14 +85,21 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
-    this.currentUserSubject.next(null);
+    this.clearAuthData();
     this.router.navigate(['/analyzer']); // Redirect to analyzer instead of login
   }
 
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
+  }
+
+  fetchCurrentUser(): Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/auth/me`).pipe(
+      tap(user => {
+        localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+        this.currentUserSubject.next(user);
+      })
+    );
   }
 
   getToken(): string | null {
@@ -67,6 +108,10 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  refreshAuthState(): void {
+    this.initializeAuth();
   }
 
   setAuthData(response: AuthResponse): void {
